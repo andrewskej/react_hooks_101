@@ -12,7 +12,7 @@ class Item{
         return this;
     }
 }
-export default class BasicCounter extends Component {
+export default class BasicAdder extends Component {
 
     state={
         list:[
@@ -39,6 +39,8 @@ export default class BasicCounter extends Component {
         this.setState({list:newList})
     }
 
+
+
     render() {
         const {list} = this.state
 
@@ -46,20 +48,21 @@ export default class BasicCounter extends Component {
             <div style={{marginBottom:'10%'}}>
                 <button onClick={()=>this.add()}>add new</button>
                 <div>
-                {
-                    list.length 
-                        ? <div>
-                            { 
-                                list.map( (item, index) => 
-                                <li key={item.id}>
-                                    {item.id}
-                                    <button style={{marginLeft:'5%'}} onClick={()=>this.remove(index)}>x</button>
-                                </li>)
-                            }
-                            <button onClick={()=>this.reset()}>reset</button>
-                          </div>
-                        : <div>the list is empty</div>
-                }                
+                    {
+                        list.length 
+                            ? <div>
+                                { 
+                                    list.map( (item, index) => 
+                                        <li key={item.id}>
+                                            {item.id}
+                                            <button style={{marginLeft:'5%'}} onClick={()=>this.remove(index)}>x</button>
+                                        </li>
+                                    )
+                                }
+                                <button onClick={()=>this.reset()}>reset</button>
+                              </div>
+                            : <div>the list is empty</div>
+                    }                
                 </div>
             </div>
         )
