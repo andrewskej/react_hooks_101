@@ -1,18 +1,31 @@
 import React, { Component } from 'react'
 
+class Item{
+    constructor(id){
+        this.id = id ? id : 0
+    }
+    getId(){
+        return this.id
+    }
+    setId(id){
+        this.id = id
+        return this;
+    }
+}
 export default class BasicCounter extends Component {
 
     state={
         list:[
            
-        ]
+        ],
     }
 
 
     add = () => {
-        const {list} = this.state
-        const lastNum = list[list.length-1]
-        const newList = [...list, lastNum ? lastNum +1 : list.length]
+        const newList = [...this.state.list]
+        const newItem = new Item()
+        newList.length ? newList.push(newItem.setId(newList[newList.length-1].id+1)) : newList.push(newItem)
+
         this.setState({list:newList})
     }
 
@@ -26,15 +39,15 @@ export default class BasicCounter extends Component {
         const {list} = this.state
 
         return (
-            <div>
+            <div style={{marginBottom:'5%'}}>
                 <button onClick={()=>this.add()}>add new</button>
                 <div>
                 {
                     list.length 
-                        ? list.map((item, i) => 
-                            <li key={i}>
-                                {item}
-                                <button onClick={()=>this.remove(i)}>x</button>
+                        ? list.map((item, index) => 
+                            <li key={item.id}>
+                                {item.id}
+                                <button onClick={()=>this.remove(index)}>x</button>
                             </li>
                         )
                         : <div>the list is empty</div>
