@@ -22,10 +22,9 @@ export default class BasicCounter extends Component {
 
 
     add = () => {
-        const newList = [...this.state.list]
         const newItem = new Item()
+        const newList = [...this.state.list]
         newList.length ? newList.push(newItem.setId(newList[newList.length-1].id+1)) : newList.push(newItem)
-
         this.setState({list:newList})
     }
 
@@ -35,21 +34,30 @@ export default class BasicCounter extends Component {
         this.setState({list:newList})
     }
 
+    reset = () => {
+        const newList = []
+        this.setState({list:newList})
+    }
+
     render() {
         const {list} = this.state
 
         return (
-            <div style={{marginBottom:'5%'}}>
+            <div style={{marginBottom:'10%'}}>
                 <button onClick={()=>this.add()}>add new</button>
                 <div>
                 {
                     list.length 
-                        ? list.map((item, index) => 
-                            <li key={item.id}>
-                                {item.id}
-                                <button onClick={()=>this.remove(index)}>x</button>
-                            </li>
-                        )
+                        ? <div>
+                            { 
+                                list.map( (item, index) => 
+                                <li key={item.id}>
+                                    {item.id}
+                                    <button style={{marginLeft:'5%'}} onClick={()=>this.remove(index)}>x</button>
+                                </li>)
+                            }
+                            <button onClick={()=>this.reset()}>reset</button>
+                          </div>
                         : <div>the list is empty</div>
                 }                
                 </div>
